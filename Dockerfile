@@ -10,6 +10,9 @@ RUN fix-permissions.sh /usr/local/lib/R
 RUN apt-get update && apt-get install -y \
     gettext-base
 
+# Install R dependencies
+RUN R -e "install.packages(c('shiny', 'ggplot2', 'DT'))"
+
 COPY shiny-server.conf.tpl /shiny-server.conf.tpl
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chown shiny:shiny /etc/shiny-server/shiny-server.conf
